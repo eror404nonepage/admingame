@@ -1,66 +1,72 @@
 <!DOCTYPE html>
+<!-- 3/4 · АДМИН ПАНЕЛ · качи в GitHub като admin.html · вход с парола -->
 <html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Админ</title><script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Crypto Queen · Админ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
-:root{--r:#e11d2e;--r2:#ff4a58;--m:#c9a7ab}
-body{font:14px/1.4 system-ui,sans-serif;background:radial-gradient(90% 40% at 50% -8%,#5e0b18,transparent 72%),#0a0507;background-attachment:fixed;color:#fff;padding:14px;max-width:760px;margin:auto;min-height:100vh}
-h1{margin-bottom:12px;display:flex;align-items:center;gap:10px;font-family:Georgia,serif}
-h2{margin:22px 0 8px;color:var(--r2);font-family:Georgia,serif}
-.ic{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:root{--rd:#e11d2e;--mu:#9a9399}
+body{font:500 14px/1.4 Manrope,system-ui,sans-serif;background:radial-gradient(80% 40% at 50% -8%,#5e0b16,transparent 70%) fixed,#07070a;color:#f4f1f1;padding:16px;max-width:760px;margin:auto}
+h1,h2{font-family:Cinzel,serif;font-weight:800}
+h1{font-size:24px;letter-spacing:.08em;margin-bottom:14px}
+h2{margin:22px 0 8px;color:#ff4d5e;font-size:18px}
+small,.mu{color:var(--mu)}
 .g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.k,.r,.f{background:linear-gradient(160deg,#ffffff12,#ffffff05);border:1px solid #ff2d3f40;border-radius:14px;padding:10px}
-.k{display:flex;align-items:center;gap:10px}
-.k .ic{width:30px;height:30px;color:var(--r2)}
-.k b{display:block;font-size:22px}
-small{color:var(--m)}
+.k,.r,.f,.lgn{background:linear-gradient(180deg,#18181e,#0d0d11);border:1px solid #2a2a33;border-radius:14px;padding:12px}
+.k b{display:block;font:800 22px Cinzel,serif}
 .r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.f{display:grid;gap:6px;margin-top:8px}
-input,button{font:inherit;padding:9px 11px;border-radius:10px;border:1px solid #ff2d3f40;background:#0a050699;color:#fff}
-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;font-weight:700;background:linear-gradient(#ff4a58,#c4121f);box-shadow:0 3px 0 #6b0812}
-button.o{background:linear-gradient(#2a1014,#14080a);border:1px solid #ff2d3f66;box-shadow:0 3px 0 #000}
-button:active{transform:translateY(2px)}
-.lg{max-width:320px;margin:16vh auto 0;text-align:center}
-.lg .ic{width:56px;height:56px;color:var(--r2)}
-</style></head><body><h1 id=hd></h1><div id=app></div>
+.f{display:grid;gap:8px;margin-top:8px}
+input,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid #33333d;background:#0a0a0d;color:#fff}
+button{background:linear-gradient(#ff5a6a,#cf1427 55%,#8e0c18);border:0;font-weight:800;cursor:pointer}
+button.alt{background:#17171c;border:1px solid #3a3a45}
+.lgn{max-width:340px;margin:18vh auto 0;display:grid;gap:10px;text-align:center}
+.er{color:#ff6b78;min-height:18px}
+</style></head><body><div id="app"></div>
 <script>
-const U='https://gdsvghjuzqljtynevyqk.supabase.co',K='sb_publishable_tK6JDlCLJPsIo6hTx5JuzA_F_J9fey7';
-const tg=window.Telegram?.WebApp,$=i=>document.getElementById(i);let T,A;
-const L={users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c3 .5 4 3 4 6"/>',
-wallet:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',
-check:'<path d="M4 12l5 5L20 6"/>',
-x:'<path d="M6 6l12 12M18 6L6 18"/>',
-refresh:'<path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/>',
-save:'<path d="M5 3h12l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7"/>',
-lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
-gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
-gem:'<path d="M6 4h12l4 6-10 11L2 10z"/><path d="M2 10h20"/>',
-link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'};
-const ic=n=>`<svg class=ic viewBox="0 0 24 24">${L[n]}</svg>`;
+const U='https://gdsvghjuzqljtynevyqk.supabase.co',K='sb_publishable_tK6JDlCLJPsIo6hTx5JuzA_F_J9fey7',$=i=>document.getElementById(i);
+let T,A;
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const api=async(fn,a)=>{const r=await fetch(U+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify(a)}),j=await r.json();if(!r.ok)throw Error(j.message||'Грешка');return j};
-const act=async(fn,a={})=>{try{A=await api('admin_'+fn,{t:T,...a});draw()}catch(x){alert(x.message)}};
-const ok=(f,id)=>`<button onclick="act('${f}',{p_id:${id},p_ok:true})">${ic('check')}</button> <button class=o onclick="act('${f}',{p_id:${id},p_ok:false})">${ic('x')}</button>`;
+
+function login(m=''){$('app').innerHTML=`<div class="lgn"><h1>CRYPTO QUEEN</h1><p class="mu">Вход в админ панела</p><input id="pw" type="password" placeholder="Парола" autocomplete="current-password" onkeydown="event.key=='Enter'&&go()"><button onclick="go()">Вход</button><p class="er">${e(m)}</p></div>`;$('pw').focus()}
+const logout=()=>{T=null;try{sessionStorage.removeItem('at')}catch{}login()};
+async function go(){try{const j=await api('admin_login',{p_pass:$('pw').value});if(j.error)return login(j.error);T=j.token;try{sessionStorage.setItem('at',T)}catch{}act('data')}catch(x){login(x.message)}}
+const act=async(fn,a={})=>{try{A=await api('admin_'+fn,{t:T,...a});draw()}catch(x){x.message=='Забранено'?logout():alert(x.message)}};
+
+const ok=(f,id)=>`<button onclick="act('${f}',{p_id:${id},p_ok:true})">Одобри</button> <button class="alt" onclick="act('${f}',{p_id:${id},p_ok:false})">Откажи</button>`;
 const pick=(i,b)=>{$('ui').value=i;$('ub').checked=b;scrollTo(0,document.body.scrollHeight)};
+const save=()=>act('save',{p_token:$('sk').value,p_wallet:$('sw').value,p_pass:$('sp').value});
 const user=()=>act('user',{p_id:+$('ui').value,p_coins:+$('uc').value||0,p_spins:+$('us').value||0,p_usd:+$('uu').value||0,p_ban:$('ub').checked});
 const album=()=>act('album',{p_name:$('an').value,p_cards:$('ac').value.trim().split(/\s+/),p_reward:+$('ar').value});
-const save=()=>act('save',{p_token:$('st').value,p_wallet:$('sw').value,p_pass:$('sp').value});
-const hook=async()=>{try{const r=await fetch(U+'/functions/v1/bot',{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({a:'setup',t:T})}),j=await r.json();alert(r.ok?'Ботът е свързан':j.error)}catch(x){alert(x.message)}};
-const gate=(m='')=>{$('app').innerHTML=`<div class=lg>${ic('lock')}<h2>Вход</h2><div class=f><input id=pw type=password placeholder="Парола" autocomplete=current-password onkeydown="event.key=='Enter'&&login()"><button onclick="login()">Влез</button><small>${e(m)}</small></div></div>`;$('pw').focus()};
-const login=async()=>{try{const r=await api('admin_login',{p_pass:$('pw').value});if(r.error)return gate(r.error);T=r.token;act('data')}catch(x){gate(x.message)}};
+async function hook(){try{const r=await fetch(U+'/functions/v1/bot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'setup',t:T})}),j=await r.json();alert(j.ok?'Ботът е свързан за плащания със Stars.':(j.description||j.error||j.message||'Грешка'))}catch(x){alert(x.message)}}
 
 function draw(){const s=A.stats;$('app').innerHTML=`
-<div class=g>${[['users','Играчи',s.users],['gem','Приходи (платени) $',s.revenue],['check','Изплатени $',s.paid_out],['wallet','Дължим на играчи $',s.owed]].map(([i,a,b])=>`<div class=k>${ic(i)}<div><small>${a}</small><b>${b}</b></div></div>`).join('')}</div>
-<button style="margin-top:8px" onclick="act('data')">${ic('refresh')} Обнови</button>
-<h2>Тайни настройки</h2><div class=f><small>Токен на бота: ${A.has_token?'зададен':'не е зададен'} · празните полета не се променят</small><input id=st type=password placeholder="Токен (API) на бота" autocomplete=off><input id=sw value="${e(A.wallet)}" placeholder="USDT адрес"><input id=sp type=password placeholder="Нова парола на панела (мин. 6 знака)" autocomplete=new-password><button onclick="save()">${ic('save')} Запази</button><button class=o onclick="hook()">${ic('link')} Свържи бота за плащане със Stars</button></div>
-<h2>Поръчки на спинове</h2>${A.orders.map(o=>`<div class=r><span>#${o.id} · ID ${o.uid} · ${o.spins} спина · $${o.usd}<br><small>${e(o.method)}${o.method=='stars'?' '+o.stars:''} · ${e(o.txid)} · ${o.status}</small></span><span>${o.status=='pending'?ok('order',o.id):''}</span></div>`).join('')||'—'}
-<h2>Тегления</h2>${A.wd.map(w=>`<div class=r><span>#${w.id} · ID ${w.uid} · $${w.usd}<br><small>${e(w.wallet)} · ${w.status}</small></span><span>${w.status=='pending'?ok('withdraw',w.id):''}</span></div>`).join('')||'—'}
-<h2>Играчи</h2>${A.users.map(u=>`<div class=r onclick="pick(${u.id},${u.banned})"><span>${e(u.name)} <small>@${e(u.username)} · ${u.id}</small></span><small>${u.coins} мон. · ${u.spins} сп. · $${u.balance}${u.banned?' · БАН':''}</small></div>`).join('')}
-<div class=f><b>Корекция на играч (избери го от списъка)</b><input id=ui placeholder="Telegram ID"><input id=uc type=number placeholder="+/- монети"><input id=us type=number placeholder="+/- спинове"><input id=uu type=number step=.01 placeholder="+/- $ баланс"><label><input id=ub type=checkbox> Блокиран</label><button onclick="user()">Приложи</button></div>
-<h2>Настройки на играта</h2><p><small>triple = печалба при 3 еднакви (по символи) · pair = 2 еднакви · none = без съвпадение · card_price = цена на карта · ref_pct = % по нива · packs = пакети (spins, usd, stars) · app_name = кратко име на Mini App от BotFather</small></p>
-${Object.entries(A.cfg).map(([k,v])=>`<div class=r><small>${k}</small><input id="c_${k}" value="${e(v)}" style="flex:1"><button onclick="act('cfg',{p_k:'${k}',p_v:$('c_${k}').value})">${ic('save')}</button></div>`).join('')}
-<h2>Албуми</h2>${A.albums.map(a=>`<div class=r><span>${e(a.name)} ${a.cards.map(e).join(' ')}</span><small>награда $${a.reward}</small></div>`).join('')}
-<div class=f><input id=an placeholder="Име на албум"><input id=ac placeholder="9 карти с интервал: crown ruby diamond coin queen key chest ring goblet"><input id=ar type=number step=.01 placeholder="Награда в $"><button onclick="album()">Добави албум</button></div>`}
+<h1>CRYPTO QUEEN · Админ</h1>
+<div class="g">${[['Играчи',s.users],['Приходи (платени) $',s.revenue],['Изплатени $',s.paid_out],['Дължими на играчи $',s.owed]].map(([a,b])=>`<div class="k"><small>${a}</small><b>${b}</b></div>`).join('')}</div>
+<div class="g" style="margin-top:8px"><button onclick="act('data')">Обнови</button><button class="alt" onclick="logout()">Изход</button></div>
 
-tg?.ready();tg?.expand();$('hd').innerHTML=ic('gear')+' Админ панел';gate();
+<h2>Тайни настройки</h2>
+<div class="f">
+ <small>Токен на бота (@cryptoqueenbot) · ${A.has_token?'зададен':'липсва'}</small><input id="sk" type="password" autocomplete="off" placeholder="Постави токена от BotFather">
+ <small>USDT адрес (TRC20), на който получаваш плащания</small><input id="sw" value="${e(A.wallet)}">
+ <small>Нова парола за панела (празно = без промяна; препоръчвам поне 10 знака)</small><input id="sp" type="password" autocomplete="new-password">
+ <button onclick="save()">Запази</button>
+ <button class="alt" onclick="hook()">Свържи бота за плащания със Stars</button>
+</div>
+
+<h2>Поръчки на спинове</h2>${A.orders.map(o=>`<div class="r"><span>#${o.id} · ID ${o.uid} · ${o.spins} спина · $${o.usd} · ${o.method=='stars'?o.stars+' Stars':'USDT'}<br><small>${e(o.txid)} · ${o.status}</small></span><span>${o.status=='pending'?ok('order',o.id):''}</span></div>`).join('')||'<small>Няма</small>'}
+<h2>Тегления</h2>${A.wd.map(w=>`<div class="r"><span>#${w.id} · ID ${w.uid} · $${w.usd}<br><small>${e(w.wallet)} · ${w.status}</small></span><span>${w.status=='pending'?ok('withdraw',w.id):''}</span></div>`).join('')||'<small>Няма</small>'}
+
+<h2>Играчи</h2>${A.users.map(u=>`<div class="r" onclick="pick(${u.id},${u.banned})"><span>${e(u.name)} <small>@${e(u.username)} · ${u.id}</small></span><small>монети ${u.coins} · спинове ${u.spins} · $${u.balance}${u.banned?' · БЛОКИРАН':''}</small></div>`).join('')}
+<div class="f"><b>Корекция на играч (избери го от списъка)</b><input id="ui" placeholder="Telegram ID"><input id="uc" type="number" placeholder="+/- монети"><input id="us" type="number" placeholder="+/- спинове"><input id="uu" type="number" step=".01" placeholder="+/- $ баланс"><label><input id="ub" type="checkbox"> Блокиран</label><button onclick="user()">Приложи</button></div>
+
+<h2>Настройки на играта</h2>
+<p><small>triple = печалба при 3 еднакви символа (по ред: монета, диамант, рубин, корона, кралица) · pair = 2 еднакви · none = без съвпадение · card_price = цена на карта · ref_pct = % по нива · packs = пакети спинове (spins, usd, stars) · admin_ids = Telegram ID-та, на които се показва бутон за панела в играта</small></p>
+${Object.entries(A.cfg).map(([k,v])=>`<div class="r"><small>${k}</small><input id="c_${k}" value="${e(v)}" style="flex:1;min-width:200px"><button onclick="act('cfg',{p_k:'${k}',p_v:$('c_${k}').value})">Запази</button></div>`).join('')}
+
+<h2>Албуми</h2>${A.albums.map(a=>`<div class="r"><span>${e(a.name)}<br><small>${a.cards.map(e).join(' ')}</small></span><small>награда $${a.reward}</small></div>`).join('')}
+<div class="f"><input id="an" placeholder="Име на албум"><input id="ac" placeholder="9 ключа: crown ruby diamond coin queen key chest ring goblet"><input id="ar" type="number" step=".01" placeholder="Награда в $"><button onclick="album()">Добави албум</button></div>`}
+
+try{T=sessionStorage.getItem('at')}catch{}
+T?act('data'):login();
 </script></body></html>
