@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- 3/3 · АДМИН ПАНЕЛ · качи в GitHub Pages като admin.html (отваря се от бутона в таб "Профил", само за admin_ids) -->
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Админ</title><script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font:14px/1.4 system-ui,sans-serif;background:#120a2e;color:#fff;padding:14px;max-width:760px;margin:auto}
+h1{margin-bottom:12px}h2{margin:20px 0 8px;color:#ffc83d}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.k,.r,.f{background:#ffffff12;border:1px solid #ffffff22;border-radius:14px;padding:10px}
+.k b{display:block;font-size:22px}small{color:#b9b2dc}
+.r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.f{display:grid;gap:6px;margin-top:8px}
+input,button{font:inherit;padding:9px 11px;border-radius:10px;border:1px solid #ffffff30;background:#ffffff14;color:#fff}
+button{background:#7c4dff;border:0}
+</style></head><body><h1>⚙️ Админ панел</h1><div id=app>Зареждане…</div>
+<script>
+const U='https://gdsvghjuzqljtynevyqk.supabase.co',K='sb_publishable_tK6JDlCLJPsIo6hTx5JuzA_F_J9fey7';
+const tg=Telegram.WebApp,$=i=>document.getElementById(i);let T,A;
+const e=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const api=async(fn,a)=>{const r=await fetch(U+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify(a)}),j=await r.json();if(!r.ok)throw Error(j.message||'Грешка');return j};
+const act=async(fn,a={})=>{try{A=await api('admin_'+fn,{t:T,...a});draw()}catch(x){alert(x.message)}};
+const ok=(f,id)=>`<button onclick="act('${f}',{p_id:${id},p_ok:true})">✅</button> <button onclick="act('${f}',{p_id:${id},p_ok:false})">❌</button>`;
+const pick=(i,b)=>{$('ui').value=i;$('ub').checked=b;scrollTo(0,document.body.scrollHeight)};
+const user=()=>act('user',{p_id:+$('ui').value,p_coins:+$('uc').value||0,p_spins:+$('us').value||0,p_usd:+$('uu').value||0,p_ban:$('ub').checked});
+const album=()=>act('album',{p_name:$('an').value,p_cards:$('ac').value.trim().split(/\s+/),p_reward:+$('ar').value});
+
+function draw(){const s=A.stats;$('app').innerHTML=`
+<div class=g>${[['👥 Играчи',s.users],['💰 Приходи (платени) $',s.revenue],['📤 Изплатени $',s.paid_out],['🧾 Дължим на играчи $',s.owed]].map(([a,b])=>`<div class=k><small>${a}</small><b>${b}</b></div>`).join('')}</div>
+<button style="margin-top:8px" onclick="act('data')">🔄 Обнови</button>
+<h2>Поръчки на спинове</h2>${A.orders.map(o=>`<div class=r><span>#${o.id} · ID ${o.uid} · ${o.spins} спина · $${o.usd}<br><small>${e(o.txid)} · ${o.status}</small></span><span>${o.status=='pending'?ok('order',o.id):''}</span></div>`).join('')||'—'}
+<h2>Тегления</h2>${A.wd.map(w=>`<div class=r><span>#${w.id} · ID ${w.uid} · $${w.usd}<br><small>${e(w.wallet)} · ${w.status}</small></span><span>${w.status=='pending'?ok('withdraw',w.id):''}</span></div>`).join('')||'—'}
+<h2>Играчи</h2>${A.users.map(u=>`<div class=r onclick="pick(${u.id},${u.banned})"><span>${e(u.name)} <small>@${e(u.username)} · ${u.id}</small></span><small>🪙${u.coins} · 🎟${u.spins} · $${u.balance}${u.banned?' · БАН':''}</small></div>`).join('')}
+<div class=f><b>Корекция на играч (избери го от списъка)</b><input id=ui placeholder="Telegram ID"><input id=uc type=number placeholder="+/- монети"><input id=us type=number placeholder="+/- спинове"><input id=uu type=number step=.01 placeholder="+/- $ баланс"><label><input id=ub type=checkbox> Блокиран</label><button onclick="user()">Приложи</button></div>
+<h2>Настройки на играта</h2><p><small>triple = печалба при 3 еднакви (по символи) · pair = 2 еднакви · none = без съвпадение · card_price = цена на карта · ref_pct = % по нива · packs = пакети спинове</small></p>
+${Object.entries(A.cfg).map(([k,v])=>`<div class=r><small>${k}</small><input id="c_${k}" value="${e(v)}" style="flex:1"><button onclick="act('cfg',{p_k:'${k}',p_v:$('c_${k}').value})">💾</button></div>`).join('')}
+<h2>Албуми</h2>${A.albums.map(a=>`<div class=r><span>${e(a.name)} ${a.cards.map(e).join(' ')}</span><small>награда $${a.reward}</small></div>`).join('')}
+<div class=f><input id=an placeholder="Име на албум"><input id=ac placeholder="9 емоджита, разделени с интервал"><input id=ar type=number step=.01 placeholder="Награда в $"><button onclick="album()">Добави албум</button></div>`}
+
+(async()=>{tg.ready();tg.expand();try{
+ if(!tg.initData)throw Error('Отвори през Telegram');
+ const p=new URLSearchParams(tg.initData),h=p.get('hash');p.delete('hash');
+ const l=await api('login',{p_check:[...p].map(([k,v])=>k+'='+v).sort().join('\n'),p_hash:h});
+ T=l.x.token;if(!l.u.admin)throw Error('Нямаш достъп');act('data')
+}catch(x){$('app').textContent='⛔ '+x.message}})();
+</script></body></html>
