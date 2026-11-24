@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 3/4 · АДМИН ПАНЕЛ · качи в GitHub като admin.html · вход с парола -->
+<!-- 3/3 · АДМИН ПАНЕЛ · качи в GitHub като admin.html · вход с парола -->
 <html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crypto Queen · Админ</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
@@ -38,7 +38,8 @@ const pick=(i,b)=>{$('ui').value=i;$('ub').checked=b;scrollTo(0,document.body.sc
 const save=()=>act('save',{p_token:$('sk').value,p_wallet:$('sw').value,p_pass:$('sp').value});
 const user=()=>act('user',{p_id:+$('ui').value,p_coins:+$('uc').value||0,p_spins:+$('us').value||0,p_usd:+$('uu').value||0,p_ban:$('ub').checked});
 const album=()=>act('album',{p_name:$('an').value,p_cards:$('ac').value.trim().split(/\s+/),p_reward:+$('ar').value});
-async function hook(){try{const r=await fetch(U+'/functions/v1/bot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'setup',t:T})}),j=await r.json();alert(j.ok?'Ботът е свързан за плащания със Stars.':(j.description||j.error||j.message||'Грешка'))}catch(x){alert(x.message)}}
+async function hook(){try{const j=await api('admin_hook',{t:T,p_url:U,p_key:K});alert(j.ok?'Ботът е свързан за плащания със Stars.':(j.description||'Грешка'))}catch(x){x.message=='Забранено'?logout():alert(x.message)}}
+async function hookinfo(){try{const j=await api('admin_hookinfo',{t:T}),r=j.result||{};alert(!r.url?'Webhook не е зададен. Натисни "Свържи бота".':r.last_error_message?'Грешка при последния опит: '+r.last_error_message:'Всичко е наред. Чакащи съобщения: '+(r.pending_update_count||0))}catch(x){x.message=='Забранено'?logout():alert(x.message)}}
 
 function draw(){const s=A.stats;$('app').innerHTML=`
 <h1>CRYPTO QUEEN · Админ</h1>
@@ -52,6 +53,7 @@ function draw(){const s=A.stats;$('app').innerHTML=`
  <small>Нова парола за панела (празно = без промяна; препоръчвам поне 10 знака)</small><input id="sp" type="password" autocomplete="new-password">
  <button onclick="save()">Запази</button>
  <button class="alt" onclick="hook()">Свържи бота за плащания със Stars</button>
+ <button class="alt" onclick="hookinfo()">Провери връзката със Stars</button>
 </div>
 
 <h2>Поръчки на спинове</h2>${A.orders.map(o=>`<div class="r"><span>#${o.id} · ID ${o.uid} · ${o.spins} спина · $${o.usd} · ${o.method=='stars'?o.stars+' Stars':'USDT'}<br><small>${e(o.txid)} · ${o.status}</small></span><span>${o.status=='pending'?ok('order',o.id):''}</span></div>`).join('')||'<small>Няма</small>'}
