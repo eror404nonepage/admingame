@@ -1,75 +1,76 @@
 <!DOCTYPE html>
-<!-- 3/3 · ADMIN PANEL · upload to GitHub as admin.html · password login -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crypto Queen · Admin</title>
 <style>
 *{box-sizing:border-box;margin:0}
-:root{--gold:#f6c453;--ruby:#ef3b57;--amy:#9b6bff;--mu:#a59fc2;--sur:linear-gradient(160deg,#1d1745e8,#110c2ae8)}
+:root{--bg:#060913;--s1:#0c1322;--s2:#111b30;--line:#ffffff17;--tx:#e8edf7;--mu:#8a96b2;--red:#e5384f;--blue:#3b82f6;--green:#21c58b;--gold:#e8b84a}
 [hidden]{display:none!important}
-body{font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(70% 34% at 8% -6%,#5b2bb066,transparent 70%) fixed,radial-gradient(60% 30% at 100% 4%,#d1184a40,transparent 70%) fixed,#080511;color:#f5f3ff;padding:16px 14px 48px;max-width:760px;margin:auto}
-h1,h2{font-weight:800}
-h1{font-size:17px;letter-spacing:.14em;background:linear-gradient(90deg,#ffe9a8,#f6c453,#ff8fa3);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{margin:20px 0 8px;color:var(--gold);font-size:16px}
+body{font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(90% 30% at 50% -8%,#12306a66,transparent 70%) fixed,var(--bg);color:var(--tx);padding:16px 14px 48px;max-width:760px;margin:auto}
+h1{font-size:15px;font-weight:700;letter-spacing:.2em}
+h2{margin:20px 0 8px;font-size:15px;font-weight:700}
 small,.mu{color:var(--mu)}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.k,.r,.f,.lgn,.pan,.alb{background:var(--sur);border:1px solid #ffffff1f;border-radius:16px;padding:12px;box-shadow:inset 0 1px 0 #ffffff12}
+.k,.r,.f,.lgn,.pan,.alb{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:12px}
 .pan{margin:6px 0 10px}
 .g3s{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .k{padding:10px}
-.k b{display:block;font-size:18px;font-weight:800}
+.k b{display:block;font-size:18px;font-weight:700}
 .r{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
 .r .nm{display:flex;gap:10px;align-items:center;flex:1;min-width:200px}
 .f{display:grid;gap:8px;margin-top:8px}
 .rw{display:flex;gap:8px;align-items:flex-end}
 label{display:grid;gap:3px;font-size:11px;color:var(--mu);flex:1}
-input,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid #ffffff26;background:#0a0720;color:#fff;width:100%}
-button{width:auto;background:linear-gradient(#ffe9a8,#f6c453 50%,#b98417);color:#2a1700;border:0;font-weight:800;cursor:pointer}
-button.alt{background:#1a1540;color:#fff;border:1px solid #ffffff2a}
+input,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:#fff;width:100%}
+button{width:auto;background:var(--blue);border:0;font-weight:700;cursor:pointer}
+button.alt{background:var(--s2);border:1px solid var(--line)}
+button.danger{background:var(--red)}
 input[type=checkbox]{width:auto}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .two button{width:100%}
-.acc{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px;border-radius:14px;font-size:15px;margin-top:8px;background:linear-gradient(#4a2d9a,#2a1766);color:#fff;border:1px solid #b79bff55}
+.acc{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px;border-radius:12px;font-size:15px;margin-top:8px;background:var(--s2);border:1px solid var(--line)}
 .acc i{width:9px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);margin:-4px 4px 0 0}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
-.tile{display:grid;place-items:center;align-content:center;gap:6px;aspect-ratio:1;width:100%;padding:6px;border-radius:18px;background:var(--sur);border:1px solid #ffffff22;color:#cfc9ea;font-size:11px;font-weight:700;text-align:center}
-.tile.on{border-color:var(--gold);color:#fff;box-shadow:0 0 20px #f6c45355;background:linear-gradient(160deg,#4a2d9a,#14102e)}
+.tile{display:grid;place-items:center;align-content:center;gap:6px;aspect-ratio:1;width:100%;padding:6px;border-radius:14px;background:var(--s1);border:1px solid var(--line);color:#b3bdd6;font-size:11px;font-weight:600;text-align:center}
+.tile.on{color:#fff;box-shadow:inset 0 2px 0 var(--red);background:var(--s2)}
 .ic{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .lgn{max-width:340px;margin:18vh auto 0;display:grid;gap:10px;text-align:center}
 .lgn button{width:100%}
 .er{color:#ff8a94;min-height:18px}
-.av{width:38px;height:38px;border-radius:50%;background:#1a1540;border:2px solid var(--amy);overflow:hidden;display:inline-block;position:relative;flex:none}
+.av{width:38px;height:38px;border-radius:50%;background:var(--s2);border:2px solid #182640;overflow:hidden;display:inline-block;position:relative;flex:none}
 .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.alb{margin-top:10px;background:linear-gradient(160deg,hsl(var(--h) 55% 19%/.92),#110c2a 62%)}
+.alb{margin-top:10px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px;text-align:center}
 .i{width:1em;height:1em;display:inline-block;vertical-align:-.14em}
-.cd{position:relative;overflow:hidden;aspect-ratio:3/4;border-radius:12px;font-size:44px;cursor:pointer;border:1.5px solid hsl(var(--h) 75% 62%);box-shadow:0 0 14px hsl(var(--h) 85% 45%/.4)}
-.cd .art{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,hsl(var(--h) 65% 28%),#12082a 80%)}
+.cd{position:relative;overflow:hidden;aspect-ratio:3/4;border-radius:10px;font-size:44px;cursor:pointer;border:1px solid hsl(var(--h) 55% 52%)}
+.cd .art{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,hsl(var(--h) 45% 24%),#0a1020 80%)}
 .cd .art img{width:100%;height:100%;object-fit:cover}
-.cd .x{position:absolute;top:3px;right:3px;padding:0 8px;font-size:15px;line-height:22px;border-radius:99px;background:#000b;color:#fff;border:1px solid #ffffff40}
+.sl{position:relative;aspect-ratio:1;border-radius:10px;background:var(--s2);border:1px solid var(--line);display:grid;place-items:center;font-size:34px;cursor:pointer;margin-bottom:4px}
+.sl img{width:80%;height:80%;object-fit:contain}
+.x{position:absolute;top:3px;right:3px;padding:0 8px;font-size:15px;line-height:22px;border-radius:99px;background:#000b;color:#fff;border:1px solid #ffffff40}
 .se{display:flex;justify-content:center;gap:1px;margin-top:6px}
-.sb{padding:3px;background:none;border:0;opacity:.25;font-size:16px;box-shadow:none}
+.sb{padding:3px;background:none;border:0;opacity:.25;font-size:16px}
 .sb.on{opacity:1}
 .sb .i{display:block}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#fff1b8"/><stop offset=".5" stop-color="#e8b84a"/><stop offset="1" stop-color="#9a6410"/></linearGradient>
 <linearGradient id="red" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#ff7a8a"/><stop offset=".55" stop-color="#d4172a"/><stop offset="1" stop-color="#7a0813"/></linearGradient>
-<linearGradient id="ice" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#b9cde3"/><stop offset="1" stop-color="#6f8cab"/></linearGradient>
 <linearGradient id="dark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#3a3a58"/><stop offset="1" stop-color="#0c0a1c"/></linearGradient>
+<linearGradient id="volt" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#fffbb0"/><stop offset=".5" stop-color="#ffd21f"/><stop offset="1" stop-color="#ff8a00"/></linearGradient>
 <linearGradient id="eme" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#9cf5c8"/><stop offset=".5" stop-color="#19b97c"/><stop offset="1" stop-color="#07603c"/></linearGradient>
 <linearGradient id="sap" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#b4d6ff"/><stop offset=".5" stop-color="#3d7bff"/><stop offset="1" stop-color="#1a3f9c"/></linearGradient>
 </defs>
 <symbol id="coin" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="url(#gold)" stroke="#6b4300" stroke-width="2"/><circle cx="32" cy="32" r="22" fill="none" stroke="#fff3bf" stroke-width="2" opacity=".7"/><path d="M32 19l3.2 8.6 9.2.4-7.2 5.7 2.5 8.8L32 37.4l-7.6 5.1 2.5-8.8-7.2-5.7 9.2-.4z" fill="url(#red)"/></symbol>
-<symbol id="diamond" viewBox="0 0 64 64"><path d="M16 10h32l12 16-28 32L4 26z" fill="url(#ice)" stroke="#5d7a99" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 26h56M16 10l6 16 10-16 10 16 6-16M22 26l10 32 10-32" fill="none" stroke="#fff" stroke-width="1.5" opacity=".9"/></symbol>
 <symbol id="ruby" viewBox="0 0 64 64"><path d="M16 10h32l12 16-28 32L4 26z" fill="url(#red)" stroke="#4a0008" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 26h56M16 10l6 16 10-16 10 16 6-16M22 26l10 32 10-32" fill="none" stroke="#ffc2c8" stroke-width="1.5" opacity=".85"/></symbol>
 <symbol id="emerald" viewBox="0 0 64 64"><path d="M16 10h32l12 16-28 32L4 26z" fill="url(#eme)" stroke="#04402a" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 26h56M16 10l6 16 10-16 10 16 6-16M22 26l10 32 10-32" fill="none" stroke="#d2ffe9" stroke-width="1.5" opacity=".85"/></symbol>
 <symbol id="sapphire" viewBox="0 0 64 64"><path d="M16 10h32l12 16-28 32L4 26z" fill="url(#sap)" stroke="#10286e" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 26h56M16 10l6 16 10-16 10 16 6-16M22 26l10 32 10-32" fill="none" stroke="#dcebff" stroke-width="1.5" opacity=".85"/></symbol>
 <symbol id="crown" viewBox="0 0 64 64"><path d="M8 46L5 20l15 12 12-18 12 18 15-12-3 26z" fill="url(#gold)" stroke="#6b4300" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="46" width="48" height="9" rx="2" fill="url(#gold)" stroke="#6b4300" stroke-width="2"/><circle cx="32" cy="38" r="4" fill="url(#red)"/><circle cx="18" cy="41" r="2.6" fill="url(#eme)"/><circle cx="46" cy="41" r="2.6" fill="url(#sap)"/><circle cx="5" cy="18" r="3" fill="url(#gold)"/><circle cx="32" cy="12" r="3.4" fill="url(#gold)"/><circle cx="59" cy="18" r="3" fill="url(#gold)"/></symbol>
-<symbol id="queen" viewBox="0 0 64 64"><rect x="12" y="4" width="40" height="56" rx="6" fill="#fff" stroke="#c1121f" stroke-width="3"/><rect x="17" y="9" width="30" height="46" rx="3" fill="none" stroke="#c1121f" stroke-width="1" opacity=".5"/><text x="32" y="35" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="26" fill="#c1121f">Q</text><path d="M32 53c-6-4-9-7-9-10a4.6 4.6 0 0 1 9-1.5 4.6 4.6 0 0 1 9 1.5c0 3-3 6-9 10z" fill="url(#red)"/></symbol>
 <symbol id="key" viewBox="0 0 64 64"><circle cx="20" cy="22" r="11" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M28 30l26 26M42 44l7-7M49 51l7-7" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="22" r="3" fill="url(#red)"/></symbol>
 <symbol id="chest" viewBox="0 0 64 64"><path d="M6 30C6 16 18 8 32 8s26 8 26 22z" fill="url(#red)" stroke="#2a0510" stroke-width="2"/><rect x="6" y="30" width="52" height="26" rx="3" fill="url(#dark)" stroke="#2a0510" stroke-width="2"/><path d="M6 30h52M16 14v42M48 14v42" fill="none" stroke-width="4" stroke="url(#gold)"/><rect x="26" y="25" width="12" height="15" rx="2" fill="url(#gold)" stroke="#6b4300" stroke-width="1.5"/><circle cx="32" cy="31" r="2" fill="#2a0510"/></symbol>
 <symbol id="ring" viewBox="0 0 64 64"><circle cx="32" cy="41" r="16" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M24 11h16l6 9-14 12-14-12z" fill="url(#red)" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 20h28M28 11l-2 9 6 12 6-12-2-9" fill="none" stroke="#fff" stroke-width="1.2" opacity=".8"/></symbol>
 <symbol id="goblet" viewBox="0 0 64 64"><path d="M14 8h36c0 17-7 27-18 28C21 35 14 25 14 8z" fill="url(#gold)" stroke="#6b4300" stroke-width="2" stroke-linejoin="round"/><path d="M17 14h30c-1 8-5 14-15 14S18 22 17 14z" fill="url(#red)"/><path d="M32 36v14" stroke="url(#gold)" stroke-width="5"/><path d="M18 57c0-6 7-7 14-7s14 1 14 7z" fill="url(#gold)" stroke="#6b4300" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="bolt" viewBox="0 0 64 64"><path d="M38 3L12 36h16l-5 25 29-37H35z" fill="url(#volt)" stroke="#9a4d00" stroke-width="2" stroke-linejoin="round"/><path d="M36 10L21 33" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></symbol>
 <symbol id="star" viewBox="0 0 64 64"><path d="M32 4l7.05 19.29 20.53.75-16.17 12.67 5.64 19.75L32 45 14.95 56.46l5.64-19.75L4.42 24.04l20.53-.75z" fill="url(#gold)" stroke="#6b4300" stroke-width="2" stroke-linejoin="round"/></symbol>
 <symbol id="n-user" viewBox="0 0 64 64"><circle cx="32" cy="22" r="11"/><path d="M10 56c2-14 12-18 22-18s20 4 22 18"/></symbol>
 <symbol id="n-tx" viewBox="0 0 64 64"><path d="M10 22h40M42 12l10 10-10 10M54 42H14M22 32L12 42l10 10"/></symbol>
@@ -79,25 +80,23 @@ input[type=checkbox]{width:auto}
 <div id="app"></div>
 <script>
 const U='https://gdsvghjuzqljtynevyqk.supabase.co',K='sb_publishable_tK6JDlCLJPsIo6hTx5JuzA_F_J9fey7',$=i=>document.getElementById(i);
-const HUE=[348,28,46,152,188,214,266,305,12];
+const HUE=[348,28,46,152,188,214,266,305,12],SL=['bolt','sapphire','emerald','ruby','crown'];
 const TABS={players:['players','n-user','Players'],tx:['tx','n-tx','Transactions'],shop:['settings','n-bag','Shop & Prices'],cards:['albums','n-cards','Cards']};
-const SET=[['daily_spins','Free spins per day'],['triple','Line payout per symbol: sapphire, emerald, ruby, crown, queen (JSON list)'],['none','Coins when no line wins'],['ref_spins','Spins gifted per invited friend'],['ref_pct','Referral % of purchases (levels separated by commas, e.g. 5 or 5,2,1)'],['fee_pct','Withdrawal fee %'],['min_withdraw','Minimum withdrawal $'],['min_purchase','Purchases required to withdraw $'],['admin_ids','Admin Telegram IDs (shows the Admin button in the game)'],['bot_name','Bot username (without @)'],['app_name','Mini App short name (empty if it is the main app)']];
+const SET=[['daily_spins','Free spins per day'],['spin_line','Spins won for a line of icon 1 (the spin icon)'],['coin_lines','Coins per line for icons 2 to 5 (JSON list of 4 numbers)'],['none','Coins when no line wins'],['ref_spins','Spins gifted per invited friend'],['ref_pct','Referral % of purchases (levels separated by commas, e.g. 5 or 5,2,1)'],['fee_pct','Withdrawal fee %'],['min_withdraw','Minimum withdrawal $'],['min_purchase','Purchases required to withdraw $'],['admin_ids','Admin Telegram IDs (shows the Admin button in the game)'],['bot_name','Bot username (without @)'],['app_name','Mini App short name (empty if it is the main app)']];
 let T,Q='',CFG={},dT;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const f=n=>(+n).toLocaleString('en-US'),m=n=>'$'+(+n).toFixed(2);
 const api=async(fn,a)=>{const r=await fetch(U+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify(a)}),j=await r.json();if(!r.ok)throw Error(j.message||'Something went wrong');return j};
 const av=p=>`<span class="av">${p.photo?`<img src="${esc(p.photo)}" alt="" onerror="this.remove()">`:''}</span>`;
 
-/* ── login ── */
 function loginView(msg=''){$('app').innerHTML=`<div class="lgn"><h1>CRYPTO QUEEN</h1><p class="mu">Admin panel</p><input id="pw" type="password" placeholder="Password" autocomplete="current-password" onkeydown="event.key=='Enter'&&go()"><button onclick="go()">Log in</button><p class="er">${esc(msg)}</p></div>`;$('pw').focus()}
 const logout=()=>{T=null;try{sessionStorage.removeItem('at')}catch{}loginView()};
 async function go(){try{const j=await api('admin_login',{p_pass:$('pw').value});if(j.error)return loginView(j.error);T=j.token;try{sessionStorage.setItem('at',T)}catch{}home()}catch(x){loginView(x.message)}}
 const call=async(fn,a={})=>{try{return await api(fn,{t:T,...a})}catch(x){x.message=='Forbidden'?logout():alert(x.message)}};
 const run=async(fn,a,sec)=>{const r=await call(fn,a);if(r&&sec)load(sec)};
 async function load(sec){const d=await call('admin_data',{p_sec:sec,p_q:sec=='players'?Q:''});if(d)R[sec](d)}
-const flash=(b,t='Saved')=>{const o=b.textContent;b.textContent=t;setTimeout(()=>b.textContent=o,1200)};
+const flash=b=>{const o=b.textContent;b.textContent='Saved';setTimeout(()=>b.textContent=o,1200)};
 
-/* ── layout ── */
 function home(){$('app').innerHTML=`<div class="top"><h1>CRYPTO QUEEN · ADMIN</h1><button class="alt" onclick="logout()">Log out</button></div>
 <button class="acc" onclick="tog('info')">Admin Info<i></i></button><div id="info" class="pan" hidden></div>
 <div class="tiles">${Object.entries(TABS).map(([k,[s,ic,t]])=>`<button class="tile" id="t_${k}" onclick="openTab('${k}')"><svg class="ic"><use href="#${ic}"/></svg>${t}</button>`).join('')}</div>
@@ -105,33 +104,35 @@ function home(){$('app').innerHTML=`<div class="top"><h1>CRYPTO QUEEN · ADMIN</
 <button class="acc" onclick="tog('secrets')">Bot Secrets<i></i></button><div id="secrets" class="pan" hidden></div>`}
 const tog=id=>{const e=$(id);e.hidden=!e.hidden;if(!e.hidden)load(id)};
 function openTab(k){Q='';document.querySelectorAll('.tile').forEach(b=>b.classList.toggle('on',b.id=='t_'+k));
- $('sec').innerHTML=k=='players'?'<input id="q" placeholder="Search by name, @username or ID" oninput="sq()" style="margin-top:6px"><div id="plist"><p class="mu">Loading…</p></div>':'<p class="mu">Loading…</p>';load(TABS[k][0])}
+ $('sec').innerHTML=k=='players'?'<button class="danger" style="margin-top:6px" onclick="delAll()">Delete ALL accounts</button><input id="q" placeholder="Search by name, @username or ID" oninput="sq()" style="margin-top:8px"><div id="plist"><p class="mu">Loading…</p></div>':'<p class="mu">Loading…</p>';load(TABS[k][0])}
 const sq=()=>{clearTimeout(dT);dT=setTimeout(()=>{Q=$('q').value;load('players')},350)};
 
-/* ── sections ── */
 const okb=(fn,id)=>`<button onclick="run('${fn}',{p_id:${id},p_ok:true},'tx')">${fn=='admin_order'?'Approve':'Mark paid'}</button> <button class="alt" onclick="run('${fn}',{p_id:${id},p_ok:false},'tx')">Reject</button>`;
 const R={
  info:d=>{$('info').innerHTML=`<div class="g3s">${[['Players',f(d.players)],['Income',m(d.income)],['Paid out',m(d.paid_out)],['Owed',m(d.owed)],['Fees',m(d.fees)],['Withdrawals',d.wd_pending+' pending']].map(([a,b])=>`<div class="k"><small>${a}</small><b>${b}</b></div>`).join('')}</div>`},
  players:L=>{if(!$('plist'))return;$('plist').innerHTML=L.map(u=>`<div class="r" onclick="pe(${u.id})" style="cursor:pointer"><span class="nm">${av(u)}<span><b>${esc(u.name)}</b> <small>@${esc(u.username||'-')} · ID ${u.id}</small><br><small>${f(u.coins)} coins · ${f(u.spins)} spins · ${m(u.balance)} · ${u.refs} referrals${u.banned?' · BANNED':''}</small></span></span></div>
-  <div class="f" id="pe${u.id}" hidden><input id="pc${u.id}" type="number" placeholder="Add / remove coins"><input id="ps${u.id}" type="number" placeholder="Add / remove spins"><input id="pu${u.id}" type="number" step=".01" placeholder="Add / remove $ balance"><label style="display:flex;gap:8px;align-items:center;font-size:13px;color:#fff"><input id="pb${u.id}" type="checkbox" ${u.banned?'checked':''}> Banned</label><button onclick="puser(${u.id})">Apply</button></div>`).join('')||'<p class="mu">No players found.</p>'},
+  <div class="f" id="pe${u.id}" hidden><input id="pc${u.id}" type="number" placeholder="Add / remove coins"><input id="ps${u.id}" type="number" placeholder="Add / remove spins"><input id="pu${u.id}" type="number" step=".01" placeholder="Add / remove $ balance"><label style="display:flex;gap:8px;align-items:center;font-size:13px;color:#fff"><input id="pb${u.id}" type="checkbox" ${u.banned?'checked':''}> Banned</label><div class="two"><button onclick="puser(${u.id})">Apply</button><button class="danger" onclick="delUser(${u.id})">Delete account</button></div></div>`).join('')||'<p class="mu">No players found.</p>'},
  tx:d=>{const kn=o=>o.kind=='spins'?f(o.spins)+' spins':o.kind=='coins'?f(o.coins)+' coins':'Special chest';
   const orow=o=>`<div class="r"><span><b>Purchase #${o.id}</b> · ${esc(o.name)} <small>ID ${o.uid}</small><br>${kn(o)} · ${m(o.usd)} · ${o.method=='stars'?o.stars+' Stars':'USDT'}<br><small>${esc(o.txid)} · ${o.status}</small></span><span>${o.status=='pending'?okb('admin_order',o.id):''}</span></div>`;
   const wrow=w=>`<div class="r"><span><b>Withdrawal #${w.id}</b> · ${esc(w.name)} <small>ID ${w.uid}</small><br>${m(w.usd)} requested · fee ${m(w.fee)} · <b>send ${m(w.net)}</b><br><small>${esc(w.wallet)} · ${w.status}</small></span><span>${w.status=='pending'?okb('admin_withdraw',w.id):''}</span></div>`;
   const P=[...d.wd.filter(w=>w.status=='pending').map(wrow),...d.orders.filter(o=>o.status=='pending').map(orow)],C=[...d.wd.filter(w=>w.status!='pending').map(wrow),...d.orders.filter(o=>o.status!='pending').map(orow)];
   $('sec').innerHTML=`<h2>Pending (${P.length})</h2>${P.join('')||'<small>Nothing pending</small>'}<h2>Completed</h2>${C.join('')||'<small>Nothing yet</small>'}`},
  settings:C=>{CFG=C;rShop()},
- albums:L=>{$('sec').innerHTML=L.map(a=>`<div class="alb" style="--h:${HUE[a.id-1]}"><div class="rw"><label>Album ${a.id} · cash reward ($)<input id="ar${a.id}" type="number" step="any" value="${a.reward}"></label><button onclick="saveR(${a.id},this)">Save</button></div>
-  <div class="g3">${a.cards.map((k,i)=>{const im=a.art[i+1],st=(a.stars||[])[i]||1;return`<div><div class="cd" onclick="up(${a.id},${i+1})"><div class="art">${im?`<img src="${im}" alt="">`:`<svg class="i"><use href="#${k}"/></svg>`}</div>${im?`<button class="x" onclick="event.stopPropagation();run('admin_card_art',{p_album:${a.id},p_slot:${i+1},p_img:''},'albums')">×</button>`:''}</div><div class="se">${[1,2,3,4,5].map(n=>`<button class="sb ${n<=st?'on':''}" onclick="setStar(${a.id},${i+1},${n},this)"><svg class="i"><use href="#star"/></svg></button>`).join('')}</div></div>`}).join('')}</div></div>`).join('')+'<p class="mu" style="margin-top:10px">Tap a card to upload its picture (resized automatically). Tap × to go back to the default drawing. Tap the stars under a card to set its rating from 1 to 5.</p>'},
+ albums:d=>{const S=d.slots;
+  $('sec').innerHTML=`<div class="alb"><b>Slot machine icons</b><p class="mu">Icon 1 pays spins when 3 in a line match. Icons 2 to 5 pay coins. Tap an icon to upload your picture (PNG with a transparent background works best).</p><div class="g5">${SL.map((k,i)=>`<div><div class="sl" onclick="upSlot(${i})">${S[i]?`<img src="${S[i]}" alt="">`:`<svg class="i"><use href="#${k}"/></svg>`}${S[i]?`<button class="x" onclick="event.stopPropagation();run('admin_slot_art',{p_sym:${i},p_img:''},'albums')">×</button>`:''}</div><small>${i?'Coins '+i:'Spins'}</small></div>`).join('')}</div></div>`
+  +d.albums.map(a=>`<div class="alb" style="--h:${HUE[a.id-1]}"><div class="rw"><label>Album ${a.id} · cash reward ($)<input id="ar${a.id}" type="number" step="any" value="${a.reward}"></label><button onclick="saveR(${a.id},this)">Save</button></div>
+  <div class="g3">${a.cards.map((k,i)=>{const im=a.art[i+1],st=(a.stars||[])[i]||1;return`<div><div class="cd" onclick="up(${a.id},${i+1})"><div class="art">${im?`<img src="${im}" alt="">`:`<svg class="i"><use href="#${k}"/></svg>`}</div>${im?`<button class="x" onclick="event.stopPropagation();run('admin_card_art',{p_album:${a.id},p_slot:${i+1},p_img:''},'albums')">×</button>`:''}</div><div class="se">${[1,2,3,4,5].map(n=>`<button class="sb ${n<=st?'on':''}" onclick="setStar(${a.id},${i+1},${n},this)"><svg class="i"><use href="#star"/></svg></button>`).join('')}</div></div>`}).join('')}</div></div>`).join('')
+  +'<p class="mu" style="margin-top:10px">Tap a card to upload its picture (resized automatically). Tap × to go back to the default drawing. Tap the stars under a card to set its rating from 1 to 5.</p>'},
  secrets:d=>{$('secrets').innerHTML=`<div class="f" style="margin:0"><small>Bot token (@cryptoqueenbot) · ${d.has_token?'set':'NOT set'}</small><input id="sk" type="password" autocomplete="off" placeholder="Paste the token from BotFather">
   <small>USDT (TRC20) wallet address for payments</small><input id="sw" value="${esc(d.wallet)}">
   <small>New admin password (leave empty to keep the current one; 10+ characters recommended)</small><input id="sp" type="password" autocomplete="new-password">
   <button onclick="save()">Save</button><button class="alt" onclick="hook()">Connect bot for Stars payments</button><button class="alt" onclick="hookinfo()">Check Stars connection</button></div>`}};
 
-/* ── players ── */
 const pe=id=>{const e=$('pe'+id);e.hidden=!e.hidden};
 const puser=id=>run('admin_user',{p_id:id,p_coins:+$('pc'+id).value||0,p_spins:+$('ps'+id).value||0,p_usd:+$('pu'+id).value||0,p_ban:$('pb'+id).checked},'players');
+const delUser=id=>{if(confirm('Delete this account permanently, including its cards, purchases and withdrawals?'))run('admin_delete_user',{p_id:id},'players')};
+const delAll=()=>{const v=prompt('This permanently deletes ALL player accounts together with their cards, purchases and withdrawals.\nType DELETE ALL to confirm.');if(v==='DELETE ALL')run('admin_delete_all_users',{p_confirm:v},'players')};
 
-/* ── shop & prices ── */
 function rShop(){const C=CFG,L=(k,t,fs)=>{let a;try{a=JSON.parse(C[k]||'[]')}catch{a=[]}if(!Array.isArray(a))a=[a];
   const inp=(x,o,i)=>{const l=x.endsWith('*'),n=l?x.slice(0,-1):x;return`<label>${n.replace('_',' ')}${l?' (comma-separated)':''}<input ${l?'type="text" data-l="1"':'type="number" step="any"'} data-k="${k}" data-i="${i}" data-f="${n}" value="${l?(o[n]||[]).join(','):(o[n]??'')}"></label>`};
   return`<div class="f"><b>${t}</b>${a.map((o,i)=>`<div class="rw">${fs.map(x=>inp(x,o,i)).join('')}${k=='special'?'':`<button class="alt" onclick="rowdel('${k}',${i})">×</button>`}</div>`).join('')}<div class="two">${k=='special'?'<span></span>':`<button class="alt" onclick="rowadd('${k}')">Add row</button>`}<button onclick="rowsave('${k}')">Save</button></div></div>`};
@@ -142,13 +143,13 @@ const rowadd=k=>{CFG[k]=JSON.stringify([...collect(k),{}]);rShop()};
 const rowdel=(k,i)=>{const a=collect(k);a.splice(i,1);CFG[k]=JSON.stringify(a);rShop()};
 const rowsave=k=>{const a=collect(k);run('admin_cfg',{p_k:k,p_v:JSON.stringify(k=='special'?a[0]:a)},'settings')};
 
-/* ── cards: rewards, stars, pictures ── */
 async function saveR(id,b){const r=await call('admin_reward',{p_id:id,p_reward:+$('ar'+id).value});if(r)flash(b)}
 async function setStar(a,s,n,b){const r=await call('admin_card_stars',{p_album:a,p_slot:s,p_stars:n});if(r)b.parentNode.querySelectorAll('.sb').forEach((e,i)=>e.classList.toggle('on',i<n))}
-function up(album,slot){const i=document.createElement('input');i.type='file';i.accept='image/*';
- i.onchange=()=>{const fl=i.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=180;c.height=240;const x=c.getContext('2d'),s=Math.max(180/im.width,240/im.height),w=im.width*s,h=im.height*s;x.drawImage(im,(180-w)/2,(240-h)/2,w,h);run('admin_card_art',{p_album:album,p_slot:slot,p_img:c.toDataURL('image/jpeg',.82)},'albums')};im.src=r.result};r.readAsDataURL(fl)};i.click()}
+function pickImg(w,h,cover,type,cb){const i=document.createElement('input');i.type='file';i.accept='image/*';
+ i.onchange=()=>{const fl=i.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d'),s=(cover?Math.max:Math.min)(w/im.width,h/im.height),dw=im.width*s,dh=im.height*s;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);cb(c.toDataURL(type,.82))};im.src=r.result};r.readAsDataURL(fl)};i.click()}
+const up=(a,s)=>pickImg(180,240,1,'image/jpeg',d=>run('admin_card_art',{p_album:a,p_slot:s,p_img:d},'albums'));
+const upSlot=i=>pickImg(128,128,0,'image/png',d=>run('admin_slot_art',{p_sym:i,p_img:d},'albums'));
 
-/* ── bot secrets ── */
 async function save(){const r=await call('admin_save',{p_token:$('sk').value,p_wallet:$('sw').value,p_pass:$('sp').value});if(r){alert('Saved.');load('secrets')}}
 async function hook(){const j=await call('admin_hook',{p_url:U,p_key:K});if(j)alert(j.ok?'The bot is connected for Stars payments.':(j.description||'Error'))}
 async function hookinfo(){const j=await call('admin_hookinfo'),r=j&&j.result||{};if(j)alert(!r.url?'Webhook is not set. Press "Connect bot for Stars payments".':r.last_error_message?'Last error: '+r.last_error_message:'All good. Pending updates: '+(r.pending_update_count||0))}
